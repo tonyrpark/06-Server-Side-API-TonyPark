@@ -1,0 +1,17 @@
+#forecast {
+  position: absolute;
+  left: -4%;
+}
+
+h1 {
+  margin-bottom: 0%;
+  background-image: linear-gradient(
+    to right,
+    rgb(78, 186, 236),
+    rgb(190, 109, 245)
+  );
+}
+
+.top-header {
+  padding: 20px;
+}
