@@ -30,22 +30,6 @@ h1 {
   font-weight: 1000;
 }
 
-/* 
-footer currently gets stuck after weather forecast forms do not use at this time
-footer {
-  padding-top: 10px;
-  padding-bottom: 10px;
-  background-color: orangered;
-  text-align: center;
-  font-family: "Montserrat";
-  font-weight: bold;
-  color: white;
-  position: relative;
-  left: 0;
-  right: 0;
-  bottom: 0;
-} */
-
 /* Class Tags */
 .top-header {
   padding: 20px;
