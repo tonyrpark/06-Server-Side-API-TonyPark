@@ -4,33 +4,35 @@ function deleteItems() {
   alert("Please refresh page");
 }
 
+// Function for when page is 'ready' i.e loaded
 $(document).ready(function () {
-  //search button feature
+  // Search Button
   $("#search-button").on("click", function () {
-    var searchTerm = $("#search-value").val(); //grab value in input search-value.
-    $("#search-value").val(""); //empty input field.
+    var searchTerm = $("#search-value").val(); // Grabs value in Search Box
+    $("#search-value").val("");
     weatherFunction(searchTerm);
     weatherForecast(searchTerm);
   });
 
-  //search button enter key feature. NOT WORKING***
+  //Search button must be manually pressed instead of pressing enter, ATT this is only a minor issue 1/28/2021 -Tony
   $("#search-button").keypress(function (event) {
     var keycode = event.keyCode ? event.keyCode : event.which;
-    // var searchTerm = $("#search-value").val();
+
     if (keycode === 13) {
       weatherFunction(searchTerm);
       weatherForecast(searchTerm);
     }
   });
 
-  var history = JSON.parse(localStorage.getItem("history")) || []; //grab item from local storage, if any.
+  //Local Storage Retention Functions
+  var history = JSON.parse(localStorage.getItem("history")) || [];
 
   if (history.length > 0) {
-    //sets history array search to correct length.
+    // Sets history length correctly
     weatherFunction(history[history.length - 1]);
   }
   for (var i = 0; i < history.length; i++) {
-    // makes a row for each element in history array(searchTerms).
+    // Create a new row for each search history item
     createRow(history[i]);
   }
 
@@ -44,6 +46,7 @@ $(document).ready(function () {
     weatherForecast($(this).text());
   });
 
+  //Ajax call to get JSON info from Open Weather API
   function weatherFunction(searchTerm) {
     $.ajax({
       type: "GET",
@@ -51,6 +54,7 @@ $(document).ready(function () {
         "https://api.openweathermap.org/data/2.5/weather?q=" +
         searchTerm +
         "&appid=2bfc5c2be9dda24a6f2c22f5985cbb4f&units=imperial",
+      // Tony API Key: 2bfc5c2be9dda24a6f2c22f5985cbb4f
     }).then(function (data) {
       if (history.indexOf(searchTerm) === -1) {
         //if index of search value does not exist.
@@ -86,7 +90,7 @@ $(document).ready(function () {
       $.ajax({
         type: "GET",
         url:
-          "https://api.openweathermap.org/data/2.5/uvi?appid=9bbe868aa95e2e05ff8a18fa3fab1fc7&lat=" +
+          "https://api.openweathermap.org/data/2.5/uvi?appid=2bfc5c2be9dda24a6f2c22f5985cbb4f&lat=" +
           lat +
           "&lon=" +
           lon,
@@ -118,8 +122,6 @@ $(document).ready(function () {
       console.log(data);
     });
   }
-  // function weatherForecast(searchTerm) 1) drop similar AJAX as above. 2) append to #forecast 3) in #forecast add row in class & add plain text "5 day forecast: " etc.
-  //Loop to create a new card for 5 days. Pull data image from search.
 
   function weatherForecast(searchTerm) {
     $.ajax({
@@ -127,7 +129,7 @@ $(document).ready(function () {
       url:
         "https://api.openweathermap.org/data/2.5/forecast?q=" +
         searchTerm +
-        "&appid=9bbe868aa95e2e05ff8a18fa3fab1fc7&units=imperial",
+        "&appid=2bfc5c2be9dda24a6f2c22f5985cbb4f&units=imperial",
     }).then(function (data) {
       console.log(data);
       $("#forecast")
@@ -146,7 +148,7 @@ $(document).ready(function () {
               ".png"
           );
 
-          var colFive = $("<div>").addClass("col-md-2"); //newly added to test issue.
+          var colFive = $("<div>").addClass("col-md-2");
           var cardFive = $("<div>").addClass("card bg-primary text-white");
           var cardBodyFive = $("<div>").addClass("card-body p-2");
           var humidFive = $("<p>")
@@ -156,7 +158,6 @@ $(document).ready(function () {
             .addClass("card-text")
             .text("Temperature: " + data.list[i].main.temp + " °F");
 
-          //merge together and put on page
           colFive.append(
             cardFive.append(
               cardBodyFive.append(titleFive, imgFive, tempFive, humidFive)
@@ -164,12 +165,6 @@ $(document).ready(function () {
           );
           //append card to column, body to card, and other elements to body
           $("#forecast .row").append(colFive);
-
-          // //OLD WAY: merge to div ---remove colFive to make right.
-          // titleFive.append(imgFive);
-          // cardBodyFive.append(titleFive, tempFive, humidFive);
-          // cardFive.append(cardBodyFive);
-          // $(".card-deck").append(cardFive);
         }
       }
     });

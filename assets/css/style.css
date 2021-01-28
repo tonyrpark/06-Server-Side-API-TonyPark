@@ -5,6 +5,24 @@
   margin: 0px;
 }
 
+html,
+body {
+  height: 100%;
+  margin: 0;
+  background-color: #d3e0ea;
+}
+.wrapper {
+  min-height: 100%;
+
+  /* Equal to height of footer */
+  /* But also accounting for potential margin-bottom of last child */
+  margin-bottom: -50px;
+}
+.footer,
+.push {
+  height: 50px;
+}
+
 h1 {
   font-family: "Montserrat", sans-serif;
   text-align: center;
@@ -12,6 +30,8 @@ h1 {
   font-weight: 1000;
 }
 
+/* 
+footer currently gets stuck after weather forecast forms do not use at this time
 footer {
   padding-top: 10px;
   padding-bottom: 10px;
@@ -22,9 +42,9 @@ footer {
   color: white;
   position: relative;
   left: 0;
+  right: 0;
   bottom: 0;
-  width: 100%;
-}
+} */
 
 /* Class Tags */
 .top-header {
@@ -54,10 +74,4 @@ footer {
 
 .mt-1 {
   font-family: "Montserrat";
-}
-
-/* ID Tags */
-#forecast {
-  position: absolute;
-  left: -4%;
 }
