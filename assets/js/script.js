@@ -1,3 +1,9 @@
+// Delete Items Button Function
+function deleteItems() {
+  localStorage.clear();
+  alert("Please refresh page");
+}
+
 $(document).ready(function () {
   //search button feature
   $("#search-button").on("click", function () {
